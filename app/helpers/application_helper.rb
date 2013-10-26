@@ -1,7 +1,10 @@
 module ApplicationHelper
   def user_thumbnail(user, version = :size150)
-    image = user.photo.try(:url, version) || image_path("photoless-user/#{version}.png")
-    image_tag image, alt: user.name
+    css_classes = "avatar #{'admin' if user.admin?}"
+    title       = "Екип" if user.admin?
+    image       = user.photo.try(:url, version) || image_path("photoless-user/#{version}.png")
+
+    image_tag image, alt: user.name, class: css_classes, title: title
   end
 
   def markup(text, options = {})
